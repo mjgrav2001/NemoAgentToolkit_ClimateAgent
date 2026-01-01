@@ -1,0 +1,18 @@
+# Simple configuration showing how to use our registered tool
+llms:
+  climate_llm:
+    _type: nim
+    model_name: meta/llama-3.1-70b-instruct
+    base_url: $NVIDIA_BASE_URL 
+    api_key: $NVIDIA_API_KEY
+    temperature: 0.7
+functions:
+  simple_calculate_statistics:
+    _type: simple_tool_demo/simple_calculate_statistics
+    description: "Calculate temperature statistics globally or for a specific country"
+workflow:
+  _type: react_agent
+  tool_names:
+    - simple_calculate_statistics
+  llm_name: climate_llm
+  verbose: true

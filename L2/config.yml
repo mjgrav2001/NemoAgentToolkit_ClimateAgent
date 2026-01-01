@@ -1,0 +1,17 @@
+
+llms:
+  climate_llm:
+    _type: nim
+    model_name: meta/llama-3.1-70b-instruct
+    base_url: $NVIDIA_BASE_URL
+    api_key: $NVIDIA_API_KEY
+    temperature: 0.7
+    max_tokens: 2048
+
+workflow:
+  _type: chat_completion
+  llm_name: climate_llm
+  system_prompt: |
+    You are a knowledgeable climate science assistant. You help users understand
+    climate data, weather patterns, and global temperature trends. Be accurate,
+    informative, and cite scientific consensus when appropriate.

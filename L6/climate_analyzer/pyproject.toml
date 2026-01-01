@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "climate_analyzer"
+version = "0.1.0"
+dependencies = [
+    "nvidia-nat~=1.0",
+    "pandas",
+    "matplotlib",
+    "seaborn",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.entry-points.'nat.components']
+climate_analyzer = "climate_analyzer.register"

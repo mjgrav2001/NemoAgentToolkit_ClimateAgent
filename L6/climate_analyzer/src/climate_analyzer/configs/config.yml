@@ -1,0 +1,62 @@
+llms:
+  climate_llm:
+    _type: nim
+    model_name: meta/llama-3.1-70b-instruct
+    base_url: $NVIDIA_BASE_URL
+    api_key: $NVIDIA_API_KEY
+    temperature: 0.0
+    top_p: 0.95
+    max_tokens: 2048
+  
+  calculator_llm:
+    _type: nim
+    model_name: meta/llama-3.1-70b-instruct
+    base_url: $NVIDIA_BASE_URL 
+    api_key: $NVIDIA_API_KEY
+    temperature: 0.0
+    max_tokens: 1024
+
+functions:
+  list_countries:
+    _type: climate_analyzer/list_countries
+    description: "List all available countries in the dataset"
+    
+  calculate_statistics:
+    _type: climate_analyzer/calculate_statistics
+    description: "Calculate temperature statistics globally or for a specific country"
+  
+  filter_by_country:
+    _type: climate_analyzer/filter_by_country
+    description: "Get information about climate data for a specific country"
+  
+  find_extreme_years:
+    _type: climate_analyzer/find_extreme_years
+    description: "Find the warmest or coldest years in the dataset"
+  
+  create_visualization:
+    _type: climate_analyzer/create_visualization
+    description: "Create visualizations including automatic top 5 countries by warming trend (country_comparison plot)"
+
+  station_statistics:
+    _type: climate_analyzer/station_statistics
+    description: "Get statistics on climate stations used in the data"
+  
+  calculator_agent:
+    _type: climate_analyzer/calculator_agent
+    description: "Perform complex mathematical calculations for climate data analysis"
+
+workflow:
+  _type: react_agent
+  tool_names:
+    - list_countries
+    - calculate_statistics
+    - filter_by_country
+    - find_extreme_years
+    - create_visualization
+    - station_statistics
+    - calculator_agent
+  llm_name: climate_llm
+  verbose: true
+  max_iterations: 5
+  parse_agent_response_max_retries: 2
+  max_tool_calls: 30
